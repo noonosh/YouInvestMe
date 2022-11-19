@@ -11,6 +11,10 @@ autom4te.cache/
 tarballs/
 test-results/
 
+# Environment variables
+.env.*
+.env
+
 # Mac bundle stuff
 *.dmg
 *.app
