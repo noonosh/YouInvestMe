@@ -11,15 +11,12 @@
                     <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 </li>
                 <li class="nav-item my-1 border-primary px-2 ">
-                    <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Home" asp-action="Index">Clients</a>
-                </li>
-                <li class="nav-item my-1 border-primary px-2 ">
-                    <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Home" asp-action="Index">Products</a>
-                </li>                   
+                    <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Idea" asp-action="Index">Ideas</a>
+                </li>                
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="text" placeholder="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-primary my-2 my-sm-0" type="submit" asp-controller="Home" asp-action="">Search</button>
             </form>
         </div>
     </div>

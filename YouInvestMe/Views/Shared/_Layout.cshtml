@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - YouInvestMe</title>
     @* <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" /> *@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/yeti.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/yeti.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/YouInvestMe.styles.css" asp-append-version="true" />
 </head>
 <body>
@@ -14,7 +14,7 @@
        <partial name="_Navbar"/>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="margin-bottom: 5rem;">
             @RenderBody()
         </main>
     </div>
