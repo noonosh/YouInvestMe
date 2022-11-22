@@ -8,8 +8,7 @@ public class ManagerController : Controller
 
     public IActionResult Index()
     {
-
-        return View(new Manager { Name="John Smith"});
+        return View("Index");
     }
     
     public IActionResult Edit(int some_id) {
