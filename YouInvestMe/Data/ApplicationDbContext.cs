@@ -14,6 +14,7 @@ namespace YouInvestMe.Data
         {
         }
 
-        public DbSet<YouInvestMe.Models.Idea> Idea { get; set; } = default!;
+        public DbSet<YouInvestMe.Models.Idea> Idea { get; set; }
+        public DbSet<YouInvestMe.Models.Account> Account { get; set; }
     }
 }
