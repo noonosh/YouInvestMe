@@ -32,8 +32,8 @@ namespace YouInvestMe.Controllers
             }
         }
 
-        public const string UserID = "";
-        public const string Username = "";
+        public const string UserID = "_ID";
+        public const string Username = "_Username";
 
         public IActionResult Index()
         {
@@ -43,6 +43,11 @@ namespace YouInvestMe.Controllers
         public IActionResult Register()
         {
             return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View(); 
         }
 
         [HttpPost]
@@ -98,7 +103,7 @@ namespace YouInvestMe.Controllers
             }
             else
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
         }
 
