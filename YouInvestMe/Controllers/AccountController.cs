@@ -1,111 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YouInvestMe.Data;
 using YouInvestMe.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using AutoMapper;
 
 namespace YouInvestMe.Controllers
 {
     public class AccountController : Controller
     {
-        // Bandaid patch until I find a better way to do this
-        public static class DbContextHelper
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            public static DbContextOptions<ApplicationDbContext> GetDbContextOptions()
-            {
-                IConfiguration configuration = new ConfigurationBuilder()
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-
-
-                return new DbContextOptionsBuilder<ApplicationDbContext>()
-                      .UseSqlServer(new SqlConnection(configuration.GetConnectionString("DefaultConnection"))).Options;
-
-            }
+            _mapper = mapper;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
-        public const string UserID = "_ID";
-        public const string Username = "_Username";
-
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
-        public IActionResult Login()
-        {
-            return View(); 
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // Register Account
-        public IActionResult Register(Account account)
+        public async Task<IActionResult> Register(UserRegistrationModel userModel)
         {
-            var dbContextOptions = DbContextHelper.GetDbContextOptions();
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                using (ApplicationDbContext db = new ApplicationDbContext(dbContextOptions))
-                {
-                    db.Account.Add(account);
-                    db.SaveChanges();
-                }
-                ModelState.Clear();
-                ViewBag.Message = account.Username + " successfully registered.";
+                return View(userModel);
             }
-            return View(); 
+
+            var user = _mapper.Map<User>(userModel);
+
+            var result = await _userManager.CreateAsync(user, userModel.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+
+                return View(userModel);
+            }
+
+            await _userManager.AddToRoleAsync(user, "Creator");
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        // Login
-        public IActionResult Login(Account user)
+        [HttpGet]
+        public IActionResult Login(string returnUrl = null)
         {
-            var dbContextOptions = DbContextHelper.GetDbContextOptions();
-            if (ModelState.IsValid)
-            {
-                using (ApplicationDbContext db = new ApplicationDbContext(dbContextOptions))
-                {
-                    var usr = db.Account.Single(u => u.Username == user.Username && u.Password == user.Password);
-                    if (usr != null)
-                    {
-                        HttpContext.Session.SetString(UserID, usr.UserId.ToString());
-                        HttpContext.Session.SetString(Username, usr.Username.ToString());
-                        return RedirectToAction("LoggedIn");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Username or Password is wrong.");
-                    }
-                }
-            }
+            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        public IActionResult LoggedIn()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(UserLoginModel userModel, string returnUrl = null)
         {
-            if (string.IsNullOrEmpty(HttpContext.Session.GetString(UserID)))
+            if (!ModelState.IsValid)
             {
-                return View();
+                return View(userModel);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(userModel.Email, userModel.Password, userModel.RememberMe, false);
+            if (result.Succeeded)
+            {
+                return RedirectToLocal(returnUrl);
             }
             else
             {
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Invalid UserName or Password");
+                return View();
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
     }
 }
