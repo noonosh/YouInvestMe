@@ -27,7 +27,7 @@ namespace YouInvestMe.Controllers
 
 
                 return new DbContextOptionsBuilder<ApplicationDbContext>()
-                      .UseSqlServer(new SqlConnection(configuration.GetConnectionString("local"))).Options;
+                      .UseSqlServer(new SqlConnection(configuration.GetConnectionString("DefaultConnection"))).Options;
 
             }
         }
