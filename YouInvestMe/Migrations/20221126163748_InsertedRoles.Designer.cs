@@ -11,7 +11,7 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126113755_InsertedRoles")]
+    [Migration("20221126163748_InsertedRoles")]
     partial class InsertedRoles
     {
         /// <inheritdoc />
@@ -50,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5616220b-8ba3-4a6e-8a3c-aec403c54462",
+                            Id = "510e7980-1bfa-46dc-a74f-f52804ccd545",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "bdff7283-cc49-4745-a561-b9914c9c2165",
+                            Id = "f950daf2-d7b9-4607-85bb-a40692d52bba",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });

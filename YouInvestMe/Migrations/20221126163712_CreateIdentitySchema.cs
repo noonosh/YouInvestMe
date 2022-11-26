@@ -226,8 +226,8 @@ namespace YouInvestMe.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "43600804-28db-4143-a67b-a37ec478a661", null, "Creator", "CREATOR" },
-                    { "fe85216c-b30f-4b65-82a6-e0e23304c4c7", null, "Manager", "MANAGER" }
+                    { "199d67b6-783f-4b25-90c5-2e292b38a385", null, "Manager", "MANAGER" },
+                    { "ff267017-d2ec-4cb6-b2a0-d94668bb06be", null, "Creator", "CREATOR" }
                 });
 
             migrationBuilder.CreateIndex(

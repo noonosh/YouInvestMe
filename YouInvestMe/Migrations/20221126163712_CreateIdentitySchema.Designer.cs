@@ -11,7 +11,7 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126113728_CreateIdentitySchema")]
+    [Migration("20221126163712_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         /// <inheritdoc />
@@ -50,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "43600804-28db-4143-a67b-a37ec478a661",
+                            Id = "ff267017-d2ec-4cb6-b2a0-d94668bb06be",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "fe85216c-b30f-4b65-82a6-e0e23304c4c7",
+                            Id = "199d67b6-783f-4b25-90c5-2e292b38a385",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
