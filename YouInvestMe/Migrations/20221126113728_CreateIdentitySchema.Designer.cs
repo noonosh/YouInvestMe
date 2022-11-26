@@ -11,8 +11,8 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221125215331_InsertedRoles")]
-    partial class InsertedRoles
+    [Migration("20221126113728_CreateIdentitySchema")]
+    partial class CreateIdentitySchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8370066e-c3bd-4a58-b2b2-9c9c6ece2dd2",
+                            Id = "43600804-28db-4143-a67b-a37ec478a661",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "6de47209-955b-4083-99b5-068423aa6938",
+                            Id = "fe85216c-b30f-4b65-82a6-e0e23304c4c7",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -95,6 +95,10 @@ namespace YouInvestMe.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Email")
@@ -147,6 +151,10 @@ namespace YouInvestMe.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -245,6 +253,21 @@ namespace YouInvestMe.Migrations
                     b.HasKey("IdeaId");
 
                     b.ToTable("Idea");
+                });
+
+            modelBuilder.Entity("YouInvestMe.Models.User", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -11,8 +11,8 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221125221704_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20221126113755_InsertedRoles")]
+    partial class InsertedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1c65972c-0b8d-4cb5-a46e-492f072b5c6a",
+                            Id = "5616220b-8ba3-4a6e-8a3c-aec403c54462",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "ec85073b-d097-47e9-b9dc-cc0c52312610",
+                            Id = "bdff7283-cc49-4745-a561-b9914c9c2165",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
