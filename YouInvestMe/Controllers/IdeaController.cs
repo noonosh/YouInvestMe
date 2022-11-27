@@ -17,8 +17,8 @@ namespace YouInvestMe.Controllers
         // GET: Idea
         public async Task<IActionResult> Index()
         {
-              return _context.Idea != null ? 
-                          View(await _context.Idea.ToListAsync()) :
+              return _context.Idea != null ?
+                          View(await _context.Idea.OrderByDescending(x => x.IdeaId).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
         }
 
