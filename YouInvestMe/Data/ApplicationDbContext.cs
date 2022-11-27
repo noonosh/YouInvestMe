@@ -25,5 +25,6 @@ namespace YouInvestMe.Data
 
         public DbSet<YouInvestMe.Models.Idea> Idea { get; set; }
         public DbSet<YouInvestMe.Models.User> User { get; set; }
+        public DbSet<YouInvestMe.Models.ProductTag> ProductTag { get; set; }
     }
 }
