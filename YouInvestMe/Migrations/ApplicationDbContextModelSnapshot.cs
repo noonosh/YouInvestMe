@@ -47,13 +47,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "510e7980-1bfa-46dc-a74f-f52804ccd545",
+                            Id = "05f0267f-bd25-4a5d-abae-f83196e83d92",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "f950daf2-d7b9-4607-85bb-a40692d52bba",
+                            Id = "f06e937e-c947-4a6d-9eae-f51fcf0800ff",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -231,6 +231,32 @@ namespace YouInvestMe.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RiskValue")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ClientId");
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
