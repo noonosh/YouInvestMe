@@ -7,6 +7,12 @@
     <a asp-controller="Idea" asp-action="Index" class="btn btn-primary">See all ideas</a>
     <a asp-controller="Client" asp-action="Index" class="btn btn-primary">See all clients</a>
 </div>
+<ul>
+    @foreach (var claim in User.Claims)
+    {
+        <li><strong>@claim.Type</strong>: @claim.Value</li>
+    }
+</ul>
 
 @section Scripts {
     @{
