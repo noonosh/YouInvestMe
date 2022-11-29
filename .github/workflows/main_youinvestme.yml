@@ -54,4 +54,4 @@ jobs:
           app-name: 'YouInvestMe'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_632D77FC04224483943A9B724E218129 }}
-          package: './YouInvestMe'
+          package: .
