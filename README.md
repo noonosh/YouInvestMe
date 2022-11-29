@@ -6,4 +6,4 @@ Web Application for Software Engineering Module at Anglia Ruskin University. Fal
 - Visual Studio
 
 
-2022, Copyright [Nuriddin Islamov](https://nuriddinislamov.com/)
+2022, EFSIX
