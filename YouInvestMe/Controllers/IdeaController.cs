@@ -51,7 +51,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaId,Title,Description")] Idea idea)
+        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +83,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Description")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
         {
             if (id != idea.IdeaId)
             {

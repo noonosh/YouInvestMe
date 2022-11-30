@@ -239,7 +239,33 @@ namespace YouInvestMe.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Abstract")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpiriesDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Instruments")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ProductType")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Region")
                         .IsRequired()
                         .HasColumnType("longtext");
 
