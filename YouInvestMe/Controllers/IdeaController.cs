@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using YouInvestMe.Data;
 using YouInvestMe.Models;
 
-namespace YouInvestMe.Controllers
+namespace YouInvestMe.Controllers 
 {
+    [Authorize]
     public class IdeaController : Controller
     {
         private readonly ApplicationDbContext _context;
