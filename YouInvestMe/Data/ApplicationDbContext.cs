@@ -27,5 +27,6 @@ namespace YouInvestMe.Data
         public DbSet<YouInvestMe.Models.User> User { get; set; }
         public DbSet<YouInvestMe.Models.ProductTag> ProductTag { get; set; }
         public DbSet<YouInvestMe.Models.Product> Product { get; set; } = default!;
+        public DbSet<YouInvestMe.Models.RiskLevel> RiskLevel { get; set; } = default!;
     }
 }
