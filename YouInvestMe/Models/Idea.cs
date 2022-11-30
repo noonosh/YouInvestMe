@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace YouInvestMe.Models
 {
@@ -6,10 +7,27 @@ namespace YouInvestMe.Models
     {
         public int IdeaId { get; set; }
 
-        public string Title { get; set; } = string.Empty;
+        public string Title { get; set; }
 
-        public string Description { get; set; } = string.Empty;
+        public string Abstract { get; set; }
+
+        [Display(Name = "Published Date")]
+        public DateTime PublishedDate { get; set; }
+
+        [Display(Name = "Expiry Date")]
+        public DateTime ExpiriesDate { get; set; }
+
+        [Display(Name = "Product Type")]
+        public string ProductType { get; set; }
+
+        public string Instruments { get; set; }
+
+        public string Currency { get; set; }
+
+        public string Region { get; set; }
+
+        public string Country { get; set; }
 
     }
-    
+
 }
