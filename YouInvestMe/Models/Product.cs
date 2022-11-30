@@ -8,6 +8,6 @@
 
         public string Description { get; set; } = string.Empty;
 
-        public virtual ProductTag? ProductTag { get; set; }
+        public virtual RiskLevel? RiskLevel { get; set; }
     }
 }
