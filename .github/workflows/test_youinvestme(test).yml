@@ -28,7 +28,7 @@ jobs:
             dotnet tool install dotnet-ef
             
       - name: Update database schema for test environment
-        run: dotnet ef database update --connection ${{ secrets.CONNECTION_STRING_TEST }} --startup-project YouInvestMe
+        run: dotnet ef database update --connection ${{ secrets.CONNECTION_STRING_TEST }} --project YouInvestMe
         
       - name: Build with dotnet
         run: dotnet build --configuration Release
