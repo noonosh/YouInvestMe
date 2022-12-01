@@ -28,7 +28,8 @@ public class HomeController : Controller
     public IActionResult Search(string keyword) {
         return View();
     }
-
+    
+    [AllowAnonymous]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
