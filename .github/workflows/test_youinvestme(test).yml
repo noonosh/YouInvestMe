@@ -46,6 +46,8 @@ jobs:
 
   deploy:
     runs-on: windows-latest
+    env:
+      ASPNETCORE_ENVIRONMENT: Test
     needs: build
     environment:
       name: 'Test'
