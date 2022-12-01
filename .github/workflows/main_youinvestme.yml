@@ -27,7 +27,7 @@ jobs:
             dotnet new tool-manifest
             dotnet tool install dotnet-ef
             
-      - name: Update database schema for test environment
+      - name: Update database schema for production environment
         run: dotnet ef database update --project YouInvestMe --connection ${{ secrets.CONNECTION_STRING }}
 
       - name: Build with dotnet

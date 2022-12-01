@@ -53,10 +53,11 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
+        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country, UserID")] Idea idea)
         {
             if (ModelState.IsValid)
             {
+                idea.UserID = User.Identity.Name;
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -85,7 +86,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country,UserID")] Idea idea)
         {
             if (id != idea.IdeaId)
             {

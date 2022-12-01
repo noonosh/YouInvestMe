@@ -4,6 +4,18 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
+
 <h1>Index</h1>
 
 <p>
@@ -28,7 +40,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            @if (userrole == "Manager" || item.UserID == User.Identity.Name){
+            <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -62,6 +75,7 @@
                 <a asp-action="Delete" asp-route-id="@item.IdeaId">Delete</a>
             </td>
         </tr>
+    }
 }
     </tbody>
 </table>
