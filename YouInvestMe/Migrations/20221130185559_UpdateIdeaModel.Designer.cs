@@ -62,10 +62,40 @@ namespace YouInvestMe.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("IdeaId");
 
                     b.ToTable("Idea");
                 });
+
+            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
+            {
+                b.Property<int>("ClientId")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<string>("Region")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.Property<int>("RiskValue")
+                    .HasColumnType("int");
+
+                b.Property<string>("Description")
+                    .IsRequired()
+                    .HasColumnType("longtext");
+
+                b.HasKey("ClientId");
+
+                b.ToTable("Client");
+            });
 #pragma warning restore 612, 618
         }
     }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using YouInvestMe.Models;
 
 namespace YouInvestMe.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -56,7 +58,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientId,Name,Tags,Region,RiskValue")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientId,Name,Description,Region,RiskValue")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +90,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientId,Name,Tags,Region,RiskValue")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ClientId,Name,Description,Region,RiskValue")] Client client)
         {
             if (id != client.ClientId)
             {
