@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ASPNETCORE_ENVIRONMENT: 'Test'
 
     steps:
       - uses: actions/checkout@v2
