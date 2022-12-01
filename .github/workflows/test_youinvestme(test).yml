@@ -21,20 +21,22 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
         
       - name: Install EF Tool
         run: |
             dotnet new tool-manifest
             dotnet tool install dotnet-ef
+            
+      - name: Update database schema for test environment
+        run: dotnet ef database update --connection ${{ secrets.CONNECTION_STRING_TEST }} --startup-project YouInvestMe
+        
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
       
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
-      - name: Update database schema for test environment
-        run: dotnet ef database update --connection ${{ secrets.CONNECTION_STRING_TEST }} --startup-project YouInvestMe
+      
         
 
       - name: Upload artifact for deployment job
