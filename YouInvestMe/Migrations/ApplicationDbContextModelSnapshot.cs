@@ -299,6 +299,10 @@ namespace YouInvestMe.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("IdeaId");
 
                     b.ToTable("Idea");

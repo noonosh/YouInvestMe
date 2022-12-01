@@ -64,7 +64,14 @@ namespace YouInvestMe.Migrations
                 type: "datetime",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-            
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserID",
+                table: "Idea",
+                type: "longtext",
+                nullable: false)
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.RenameColumn(
                 name: "Tags",
                 table: "Client",
@@ -100,6 +107,10 @@ namespace YouInvestMe.Migrations
 
             migrationBuilder.DropColumn(
                 name: "PublishedDate",
+                table: "Idea");
+
+            migrationBuilder.DropColumn(
+                name: "UserID",
                 table: "Idea");
 
             migrationBuilder.RenameColumn(
