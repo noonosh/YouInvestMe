@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -21,6 +21,14 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
+          
+      - name: Install EF Tool
+        run: |
+            dotnet new tool-manifest
+            dotnet tool install dotnet-ef
+            
+      - name: Update database schema for test environment
+        run: dotnet ef database update --project YouInvestMe --connection ${{ secrets.CONNECTION_STRING }}
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
