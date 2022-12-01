@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221201042635_RemoveDateCreatedFromIdea")]
+    partial class RemoveDateCreatedFromIdea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4aa6d075-9588-4282-b344-2df3a638d3c5",
+                            Id = "f1163353-3d12-4e04-9637-6faa28e690c8",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "b3e01535-19b5-43ae-bf16-25884b6cdf0c",
+                            Id = "cb350805-da39-4680-a1a1-bb47f5572dcd",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -242,9 +245,6 @@ namespace YouInvestMe.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<DateTime>("PublishedDate")
-                        .HasColumnType("datetime");
 
                     b.Property<string>("Title")
                         .IsRequired()
