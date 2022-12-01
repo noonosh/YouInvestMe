@@ -11,8 +11,8 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221126163712_CreateIdentitySchema")]
-    partial class CreateIdentitySchema
+    [Migration("20221127161623_InsertedRoles")]
+    partial class InsertedRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ff267017-d2ec-4cb6-b2a0-d94668bb06be",
+                            Id = "05f0267f-bd25-4a5d-abae-f83196e83d92",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "199d67b6-783f-4b25-90c5-2e292b38a385",
+                            Id = "f06e937e-c947-4a6d-9eae-f51fcf0800ff",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -234,6 +234,32 @@ namespace YouInvestMe.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Region")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RiskValue")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tags")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("ClientId");
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("YouInvestMe.Models.Idea", b =>

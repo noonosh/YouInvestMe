@@ -78,6 +78,26 @@ namespace YouInvestMe.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Client",
+                columns: table => new
+                {
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Tags = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Region = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RiskValue = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Client", x => x.ClientId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Idea",
                 columns: table => new
                 {
@@ -226,8 +246,8 @@ namespace YouInvestMe.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "199d67b6-783f-4b25-90c5-2e292b38a385", null, "Manager", "MANAGER" },
-                    { "ff267017-d2ec-4cb6-b2a0-d94668bb06be", null, "Creator", "CREATOR" }
+                    { "d92f4c77-bb0a-4900-9169-cca97eb35694", null, "Creator", "CREATOR" },
+                    { "fc292014-8a4b-4e04-ba43-a25ca873ecee", null, "Manager", "MANAGER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -285,6 +305,9 @@ namespace YouInvestMe.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Client");
 
             migrationBuilder.DropTable(
                 name: "Idea");

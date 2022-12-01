@@ -20,6 +20,10 @@ namespace YouInvestMe.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         [HttpGet]
         public IActionResult Register()
@@ -49,7 +53,18 @@ namespace YouInvestMe.Controllers
                 return View(userModel);
             }
 
-            await _userManager.AddToRoleAsync(user, "Creator");
+            string domain = userModel.Email.Substring(userModel.Email.LastIndexOf('@') + 1);
+
+            if (domain.ToLower() == "youinvest.me")
+            {
+                await _userManager.AddToRoleAsync(user, "Manager");
+            }
+            
+            else 
+            { 
+                await _userManager.AddToRoleAsync(user, "Creator"); 
+            }
+            
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }

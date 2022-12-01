@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,18 +13,20 @@
     <link rel="stylesheet" href="~/YouInvestMe.styles.css" asp-append-version="true" />
 </head>
 <body>
+    @if (SignInManager.IsSignedIn(User)){   
     <header>
        <partial name="_Navbar"/>
     </header>
+    }
     <div class="container">
-        <main role="main" class="pb-3" style="margin-bottom: 5rem;">
+        <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - YouInvestMe - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted bg-white" style="height: 10vh">
+        <div class="container text-center">
+            &copy; 2022 - YouInvestMe
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -15,20 +15,20 @@ namespace YouInvestMe.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "199d67b6-783f-4b25-90c5-2e292b38a385");
+                keyValue: "d92f4c77-bb0a-4900-9169-cca97eb35694");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "ff267017-d2ec-4cb6-b2a0-d94668bb06be");
+                keyValue: "fc292014-8a4b-4e04-ba43-a25ca873ecee");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "510e7980-1bfa-46dc-a74f-f52804ccd545", null, "Creator", "CREATOR" },
-                    { "f950daf2-d7b9-4607-85bb-a40692d52bba", null, "Manager", "MANAGER" }
+                    { "05f0267f-bd25-4a5d-abae-f83196e83d92", null, "Creator", "CREATOR" },
+                    { "f06e937e-c947-4a6d-9eae-f51fcf0800ff", null, "Manager", "MANAGER" }
                 });
         }
 
@@ -38,20 +38,20 @@ namespace YouInvestMe.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "510e7980-1bfa-46dc-a74f-f52804ccd545");
+                keyValue: "05f0267f-bd25-4a5d-abae-f83196e83d92");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "f950daf2-d7b9-4607-85bb-a40692d52bba");
+                keyValue: "f06e937e-c947-4a6d-9eae-f51fcf0800ff");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "199d67b6-783f-4b25-90c5-2e292b38a385", null, "Manager", "MANAGER" },
-                    { "ff267017-d2ec-4cb6-b2a0-d94668bb06be", null, "Creator", "CREATOR" }
+                    { "d92f4c77-bb0a-4900-9169-cca97eb35694", null, "Creator", "CREATOR" },
+                    { "fc292014-8a4b-4e04-ba43-a25ca873ecee", null, "Manager", "MANAGER" }
                 });
         }
     }
