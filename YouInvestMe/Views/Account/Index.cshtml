@@ -1,18 +1,27 @@
 ﻿@model YouInvestMe.Models.User
 
-<h1>Welcome @User.Identity.Name!</h1>
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
+
+<h1>Welcome @userrole @User.Identity.Name</h1>
 
 <div class="">
     <h1 class="display-4">Account Details</h1>
     <a asp-controller="Idea" asp-action="Index" class="btn btn-primary">See all ideas</a>
-    <a asp-controller="Client" asp-action="Index" class="btn btn-primary">See all clients</a>
-</div>
-<ul>
-    @foreach (var claim in User.Claims)
+    @if (userrole == "Manager")
     {
-        <li><strong>@claim.Type</strong>: @claim.Value</li>
+        <a asp-controller="Client" asp-action="Index" class="btn btn-primary">See all clients</a>
     }
-</ul>
+</div>
 
 @section Scripts {
     @{
