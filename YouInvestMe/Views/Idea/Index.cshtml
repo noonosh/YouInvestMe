@@ -4,21 +4,26 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 class="h1 mb-4">All ideas</h1>
+<h1>Index</h1>
 
-<span>
-    <a class="btn btn-primary mb-2"asp-action="Create">Create New</a>
-</span>
-<table class="table table-striped">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Abstract)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => model.PublishedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpiriesDate)
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -28,7 +33,28 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Description)
+                @Html.DisplayFor(modelItem => item.Abstract)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExpiriesDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instruments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdeaId">Edit</a> |
