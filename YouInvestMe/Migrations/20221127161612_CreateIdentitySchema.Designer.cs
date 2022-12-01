@@ -253,7 +253,7 @@ namespace YouInvestMe.Migrations
                     b.Property<int>("RiskValue")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Tags")
                         .IsRequired()
                         .HasColumnType("longtext");
 
