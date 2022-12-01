@@ -37,12 +37,18 @@ jobs:
         run: dotnet ef migrations script --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --idempotent --context ApplicationDbContext --project YouInvestMe
         
       - name: Azure SQL Deploy
-        uses: Azure/sql-action@v2
+        uses: Azure/sql-action@v1
         with:
+          # Name of the Azure SQL Server name, like Fabrikam.database.windows.net.
+          server-name: tcp:yimproduction.mysql.database.azure.com
           # The connection string, including authentication information, for the Azure SQL Server database.
           connection-string: ${{ secrets.CONNECTION_STRING }}
           # Path to SQL script file to deploy
-          path: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
+          sql-file: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
+          # # The connection string, including authentication information, for the Azure SQL Server database.
+          # connection-string: ${{ secrets.CONNECTION_STRING }}
+          # # Path to SQL script file to deploy
+          # path: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
