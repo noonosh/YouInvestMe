@@ -12,8 +12,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ASPNETCORE_ENVIRONMENT: Test
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +28,7 @@ jobs:
             dotnet tool install dotnet-ef
             
       - name: Update database schema for test environment
-        run: dotnet ef database update --project YouInvestMe --connection ${{ secrets.CONNECTION_STRING_TEST }} -- --environment Test
+        run: dotnet ef database update --project YouInvestMe --connection ${{ secrets.CONNECTION_STRING_TEST }}
         
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -46,8 +44,6 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    env:
-      ASPNETCORE_ENVIRONMENT: Test
     needs: build
     environment:
       name: 'Test'
