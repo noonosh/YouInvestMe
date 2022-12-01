@@ -34,7 +34,7 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
         
       - name: Update database schema for test environment
-        run: dotnet ef database update --connection {{ secrets.CONNECTION_STRING_TEST }} --context ApplicationDbContext --project YouInvestMe
+        run: dotnet ef database update --connection ${{ secrets.CONNECTION_STRING_TEST }} --context ApplicationDbContext --project YouInvestMe
         
 
       - name: Upload artifact for deployment job
