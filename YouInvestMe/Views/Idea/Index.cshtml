@@ -21,7 +21,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<table class="table table-hover table-responsive">
     <thead>
         <tr>
             <th>
@@ -34,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExpiriesDate)
+                @Html.DisplayNameFor(model => model.Region)
             </th>
         </tr>
     </thead>
@@ -43,7 +43,9 @@
             @if (userrole == "Manager" || item.UserID == User.Identity.Name){
             <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                <a asp-action="Details" asp-route-id="@item.IdeaId">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </a>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Abstract)
@@ -52,27 +54,7 @@
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExpiriesDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Instruments)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Region)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdeaId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdeaId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdeaId">Delete</a>
             </td>
         </tr>
     }

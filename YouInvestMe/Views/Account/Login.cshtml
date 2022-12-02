@@ -1,8 +1,8 @@
 ﻿@model YouInvestMe.Models.UserLoginModel
 
 
-<div class="d-flex flex-column justify-content-center align-items-center" style="height: 90vh">
-    <h1>Login</h1>
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 class="mb-3"><img src="/assets/logo.svg" class="me-3 mb-2" width='32' height='32' alt="Logo" />Login</h1>
     <div class="col-md-4">
         <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>

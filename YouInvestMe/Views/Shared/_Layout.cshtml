@@ -1,5 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
+    
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,22 +25,69 @@
     <link rel="stylesheet" href="~/YouInvestMe.styles.css" asp-append-version="true" />
 </head>
 <body>
-    @if (SignInManager.IsSignedIn(User)){   
-    <header>
-       <partial name="_Navbar"/>
-    </header>
-    }
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted bg-white" style="height: 10vh">
-        <div class="container text-center">
-            &copy; 2022 - YouInvestMe
+    @if (SignInManager.IsSignedIn(User)){
+        
+    @* App Layout *@
+    <div class="vh-100 w-100 d-flex flex-column flex-nowrap">
+        
+        @* Header *@
+        <header class="flex-shrink-0">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-secondary border-bottom box-shadow flex-shrink-0">
+                <div class="container-fluid">  
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="/assets/logo.svg" class="me-2" width='32' height='32' alt="Logo" />YouInvestMe</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1 ms-4 my-2">
+                            <li class="nav-item border-start my-1 border-primary px-2 ">
+                                <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item my-1 border-primary px-2 ">
+                                <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Idea" asp-action="Index">Ideas</a>
+                            </li>
+                            @if (userrole == "Manager") {
+                            <li class="nav-item my-1 border-primary px-2 ">
+                                <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
+                            </li>
+                            }                
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        @* Main body *@
+        <div class="px-5 pt-3 pb-5 overflow-auto flex-grow-1">
+            <main role="main">
+                @RenderBody()
+            </main>
         </div>
-    </footer>
+        
+        @* Footer *@
+        <footer class="border-top flex-shrink-0 d-flex flex-column justify-content-center bg-white text-muted" style="height: 70px;">
+            <div class="d-flex justify-content-between w-75 mx-auto"> 
+                <div class="text-center">
+                    &copy; 2022 - YouInvestMe
+                </div>
+                <div class=''>
+                    <a href="https://github.com/nuriddinislamov/YouInvestMe" target='_blank' class="mx-2 text-decoration-none">GitHub</a>
+                    <a href="#" class="mx-2 text-decoration-none">Contact Us</a>
+                    <a href="https://www.aru.ac.uk/" target="_blank" class="mx-2 text-decoration-none">ARU</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    } else {
+        <div class="container">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
