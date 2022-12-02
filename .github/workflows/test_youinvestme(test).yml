@@ -4,7 +4,6 @@
 name: Test Env Build and deploy ASP.Net Core app to Azure Web App - youinvestme
 
 on:
-  push:
   pull_request:
     branches:
       - test
