@@ -1,5 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> SignInManager
+    
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +46,12 @@
                             </li>
                             <li class="nav-item my-1 border-primary px-2 ">
                                 <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Idea" asp-action="Index">Ideas</a>
-                            </li>                
+                            </li>
+                            @if (userrole == "Manager") {
+                            <li class="nav-item my-1 border-primary px-2 ">
+                                <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
+                            </li>
+                            }                
                         </ul>
                         <partial name="_LoginPartial" />
                     </div>

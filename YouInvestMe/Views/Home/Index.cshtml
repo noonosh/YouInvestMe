@@ -2,10 +2,28 @@
     ViewData["Title"] = "Home Page";
 }
 
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
+
 <div class="container">
     
     <div class="p-4 mb-2 rounded-4 col-8 text-center mx-auto container">
-        <h1 class="display-5 fw-bold">Hello, <span class="text-primary">Creator</span>!</h1>
+        <h1 class="display-5 fw-bold">Hello, 
+            @if (userrole == "Creator") {
+            <span class="text-primary">Creator</span>
+            } else if (userrole == "Manager") {
+                <span class="text-primary">Manager</span>
+            }
+            !</h1>
         <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Create" asp-controller="Idea">start adding</a> your ideas to the platform or <a asp-action="Index" asp-controller="Idea">see</a> what you have available so far.</p>
     </div>
     
