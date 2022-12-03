@@ -26,5 +26,7 @@ namespace YouInvestMe.Data
         public DbSet<YouInvestMe.Models.Idea> Idea { get; set; }
         public DbSet<YouInvestMe.Models.User> User { get; set; }
         public DbSet<YouInvestMe.Models.Client> Client { get; set; } = default!;
+        public DbSet<YouInvestMe.Models.RiskLevel> RiskLevel { get; set; } = default!;
+        public DbSet<YouInvestMe.Models.Product> Product { get; set; } = default!;
     }
 }

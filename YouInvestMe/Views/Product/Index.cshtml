@@ -1,0 +1,83 @@
+﻿@model IEnumerable<YouInvestMe.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InternalInstrumentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstrumentDisplayName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstrumentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AssetType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PriceCurrency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClosingPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RiskLevel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InternalInstrumentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstrumentDisplayName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstrumentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssetType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PriceCurrency)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClosingPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RiskLevel.RiskLevelId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

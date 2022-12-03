@@ -1,0 +1,74 @@
+﻿@model YouInvestMe.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+                <label asp-for="InternalInstrumentId" class="control-label"></label>
+                <input asp-for="InternalInstrumentId" class="form-control" />
+                <span asp-validation-for="InternalInstrumentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstrumentDisplayName" class="control-label"></label>
+                <input asp-for="InstrumentDisplayName" class="form-control" />
+                <span asp-validation-for="InstrumentDisplayName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InstrumentName" class="control-label"></label>
+                <input asp-for="InstrumentName" class="form-control" />
+                <span asp-validation-for="InstrumentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssetType" class="control-label"></label>
+                <input asp-for="AssetType" class="form-control" />
+                <span asp-validation-for="AssetType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Region" class="control-label"></label>
+                <input asp-for="Region" class="form-control" />
+                <span asp-validation-for="Region" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <input asp-for="Country" class="form-control" />
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriceCurrency" class="control-label"></label>
+                <input asp-for="PriceCurrency" class="form-control" />
+                <span asp-validation-for="PriceCurrency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClosingPrice" class="control-label"></label>
+                <input asp-for="ClosingPrice" class="form-control" />
+                <span asp-validation-for="ClosingPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RiskLevelId" class="control-label"></label>
+                <select asp-for="RiskLevelId" class="form-control" asp-items="ViewBag.RiskLevelId"></select>
+                <span asp-validation-for="RiskLevelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
