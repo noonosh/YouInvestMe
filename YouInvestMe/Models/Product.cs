@@ -12,6 +12,6 @@
         public string PriceCurrency { get; set; } = string.Empty;
         public string ClosingPrice { get; set; } = string.Empty;
         public int RiskLevelId { get; set; }
-        public virtual RiskLevel? RiskLevel { get; set; }
+        public virtual RiskLevel RiskLevel { get; set; }
     }
 }
