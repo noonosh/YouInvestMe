@@ -57,6 +57,7 @@ namespace YouInvestMe.Controllers
         {
             if (ModelState.IsValid)
             {
+                idea.PublishedDate = DateTime.Now;
                 idea.UserID = User.Identity.Name;
                 _context.Add(idea);
                 await _context.SaveChangesAsync();

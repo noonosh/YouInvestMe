@@ -2,16 +2,16 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Compile Remove="YouInvestMe\**" />
     <Content Remove="YouInvestMe\**" />
     <EmbeddedResource Remove="YouInvestMe\**" />
     <None Remove="YouInvestMe\**" />
-  </ItemGroup>
+  </ItemGroup> -->
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />

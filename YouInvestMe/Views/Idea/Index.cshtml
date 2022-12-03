@@ -16,13 +16,21 @@
     }
 }
 
-<h1>Index</h1>
+
+@if (userrole == "Manager") {
+    <h1 class='fw-bold my-4'>All ideas</h1>
+} else if (userrole == "Creator") {
+    <h1 class='fw-bold my-4'>My ideas</h1>
+} else {
+    <h1 class='fw-bold my-4'>Ideas.</h1>
+}
+
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table table-hover table-responsive">
-    <thead>
+<table class="table table-hover table-bordered col-md-push" style="table-layout: fixed">
+    <thead class="table-light text-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -47,7 +55,9 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </a>
             </td>
-            <td>
+            <td style="text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;">
                 @Html.DisplayFor(modelItem => item.Abstract)
             </td>
             <td>

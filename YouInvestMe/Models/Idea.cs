@@ -12,9 +12,11 @@ namespace YouInvestMe.Models
         public string Abstract { get; set; }
 
         [Display(Name = "Published Date")]
+        [DataType(DataType.Date)]
         public DateTime PublishedDate { get; set; }
 
         [Display(Name = "Expiry Date")]
+        [DataType(DataType.Date)]
         public DateTime ExpiriesDate { get; set; }
 
         [Display(Name = "Product Type")]
