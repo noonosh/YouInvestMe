@@ -19,8 +19,8 @@ namespace YouInvestMe.Controllers
         // GET: Idea
         public async Task<IActionResult> Index()
         {
-              return _context.Idea != null ? 
-                          View(await _context.Idea.ToListAsync()) :
+              return _context.Idea != null ?
+                          View(await _context.Idea.OrderByDescending(x => x.PublishedDate).ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
         }
 
@@ -53,11 +53,12 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
+        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country, UserID")] Idea idea)
         {
             if (ModelState.IsValid)
             {
                 idea.PublishedDate = DateTime.Now;
+                idea.UserID = User.Identity.Name;
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country,UserID")] Idea idea)
         {
             if (id != idea.IdeaId)
             {

@@ -16,6 +16,7 @@
     }
 }
 
+
 @if (userrole == "Manager") {
     <h1 class='fw-bold my-4'>All ideas</h1>
 } else if (userrole == "Creator") {
@@ -47,7 +48,8 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+            @if (userrole == "Manager" || item.UserID == User.Identity.Name){
+            <tr>
             <td>
                 <a asp-action="Details" asp-route-id="@item.IdeaId">
                     @Html.DisplayFor(modelItem => item.Title)
@@ -65,6 +67,7 @@
                 @Html.DisplayFor(modelItem => item.Region)
             </td>
         </tr>
+    }
 }
     </tbody>
 </table>

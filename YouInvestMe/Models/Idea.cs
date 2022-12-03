@@ -30,6 +30,8 @@ namespace YouInvestMe.Models
 
         public string Country { get; set; }
 
+        public string? UserID { get; set; }
+
     }
 
 }
