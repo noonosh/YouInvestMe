@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using YouInvestMe.Data;
@@ -10,6 +11,7 @@ using YouInvestMe.Models;
 
 namespace YouInvestMe.Controllers
 {
+    [Authorize(Roles = "Manager")]
     public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;

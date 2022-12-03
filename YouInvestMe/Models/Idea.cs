@@ -30,6 +30,7 @@ namespace YouInvestMe.Models
 
         public string Country { get; set; }
 
+        [Display(Name = "Created by")]
         public string UserID { get; set; }
 
     }

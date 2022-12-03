@@ -5,48 +5,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class='fw-bold my-4'>All clients</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
-    <thead>
+<table class="table table-hover table-bordered" style="table-layout: fixed">
+    <thead class="table-light text-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Region)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RiskValue)
+                @Html.DisplayNameFor(model => model.RiskLevelId)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                <a asp-action="Details" asp-route-id="@item.ClientId">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </a>
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.Region)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RiskValue)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ClientId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ClientId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ClientId">Delete</a>
+                @Html.DisplayFor(modelItem => item.RiskLevelId)
             </td>
         </tr>
 }

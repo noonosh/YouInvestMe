@@ -47,10 +47,10 @@
                             <li class="nav-item my-1 border-primary px-2 ">
                                 <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Idea" asp-action="Index">Ideas</a>
                             </li>
+                            @if (userrole == "Manager") {
                             <li class="nav-item my-1 border-primary px-2 ">
                                 <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Product" asp-action="Index">Products</a>
                             </li>
-                            @if (userrole == "Manager") {
                             <li class="nav-item my-1 border-primary px-2 ">
                                 <a class="nav-link text-dark link-primary" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
                             </li>

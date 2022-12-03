@@ -1,17 +1,37 @@
-﻿namespace YouInvestMe.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace YouInvestMe.Models
 {
     public class Product
     {
         public int ProductId { get; set; }
-        public string InternalInstrumentId { get; set; } = string.Empty;
-        public string InstrumentDisplayName { get; set; } = string.Empty;
-        public string InstrumentName { get; set; } = string.Empty;
-        public string AssetType { get; set; } = string.Empty;
-        public string Region { get; set; } = string.Empty;
-        public string Country { get; set; } = string.Empty;
-        public string PriceCurrency { get; set; } = string.Empty;
-        public string ClosingPrice { get; set; } = string.Empty;
+        
+        [Display(Name = "Internal ID")]
+        public string InternalInstrumentId { get; set; }
+        
+        [Display(Name = "Display Name")]
+        public string InstrumentDisplayName { get; set; }
+        
+        [Display(Name = "Full name")]
+        public string InstrumentName { get; set; }
+        
+        [Display(Name = "Asset Type")]
+        [Required]
+        public string AssetType { get; set; }
+        
+        public string Region { get; set; }
+        
+        public string Country { get; set; }
+        
+        [Display(Name = "Price Currency")]
+        public string PriceCurrency { get; set; }
+        
+        [Display(Name = "Closing Price")]
+        public float ClosingPrice { get; set; }
+        
+        [Display(Name = "Risk Level")]
         public int RiskLevelId { get; set; }
+        
         public virtual RiskLevel RiskLevel { get; set; }
     }
 }

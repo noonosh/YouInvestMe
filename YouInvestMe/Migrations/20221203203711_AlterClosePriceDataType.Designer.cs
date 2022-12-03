@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203203711_AlterClosePriceDataType")]
+    partial class AlterClosePriceDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fa42b674-7e6b-44e6-8efa-42446c31a81c",
+                            Id = "323b7c8a-a116-4fdc-8f97-6f732a6bd522",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "059d594c-602e-4567-a43f-ebede36d5ad0",
+                            Id = "3672e307-5926-416a-949e-63e6860df1e0",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -248,12 +251,10 @@ namespace YouInvestMe.Migrations
                     b.Property<string>("Region")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("RiskLevelId")
+                    b.Property<int>("RiskValue")
                         .HasColumnType("int");
 
                     b.HasKey("ClientId");
-
-                    b.HasIndex("RiskLevelId");
 
                     b.ToTable("Client");
                 });
@@ -418,17 +419,6 @@ namespace YouInvestMe.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
-                        .WithMany()
-                        .HasForeignKey("RiskLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RiskLevel");
                 });
 
             modelBuilder.Entity("YouInvestMe.Models.Product", b =>
