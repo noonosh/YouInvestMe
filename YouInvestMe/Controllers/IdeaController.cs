@@ -57,6 +57,7 @@ namespace YouInvestMe.Controllers
         {
             if (ModelState.IsValid)
             {
+                idea.PublishedDate = DateTime.Now;
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
