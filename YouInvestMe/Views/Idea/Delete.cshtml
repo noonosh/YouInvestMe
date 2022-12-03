@@ -69,7 +69,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdeaId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Yes, Delete" class="btn btn-danger" />
+        <a asp-action="Details" asp-route-id="@Model?.IdeaId" class="btn btn-secondary">No, leave it</a>
     </form>
 </div>
