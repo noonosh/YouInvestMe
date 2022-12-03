@@ -13,10 +13,12 @@ namespace YouInvestMe.Models
 
         [Display(Name = "Published Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime PublishedDate { get; set; }
 
         [Display(Name = "Expiry Date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime ExpiriesDate { get; set; }
 
         [Display(Name = "Product Type")]
