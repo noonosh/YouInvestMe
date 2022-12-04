@@ -50,6 +50,7 @@ namespace YouInvestMe.Controllers
         // GET: Client/Create
         public IActionResult Create()
         {
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId");
             return View();
         }
 
@@ -58,7 +59,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientId,Name,Description,Region,RiskValue")] Client client)
+        public async Task<IActionResult> Create([Bind("ClientId,Name,Description,Region,RiskLevelId")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +67,7 @@ namespace YouInvestMe.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
             return View(client);
         }
 
@@ -82,6 +84,7 @@ namespace YouInvestMe.Controllers
             {
                 return NotFound();
             }
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
             return View(client);
         }
 
@@ -90,7 +93,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientId,Name,Description,Region,RiskValue")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ClientId,Name,Description,Region,RiskLevelId")] Client client)
         {
             if (id != client.ClientId)
             {
@@ -117,6 +120,7 @@ namespace YouInvestMe.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
             return View(client);
         }
 

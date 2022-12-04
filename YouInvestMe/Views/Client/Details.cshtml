@@ -30,14 +30,16 @@
             @Html.DisplayFor(model => model.Region)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RiskValue)
+            @Html.DisplayNameFor(model => model.RiskLevelId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RiskValue)
+            @Html.DisplayFor(model => model.RiskLevelId)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ClientId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ClientId" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
+<h6 class="fw-bold mt-4 border-top pt-4 w-100" style="font-size: 2rem">Danger zone!</h6>
+<a asp-action="Delete" asp-route-id="@Model?.ClientId" class="btn btn-danger">Delete</a>

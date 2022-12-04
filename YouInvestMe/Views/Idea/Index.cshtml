@@ -22,48 +22,48 @@
 } else if (userrole == "Creator") {
     <h1 class='fw-bold my-4'>My ideas</h1>
 } else {
-    <h1 class='fw-bold my-4'>Ideas.</h1>
+    <h1 class='fw-bold my-4'>Ideas</h1>
 }
 
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table table-hover table-bordered col-md-push" style="table-layout: fixed">
+<table class="table table-hover table-bordered" style="table-layout: fixed">
     <thead class="table-light text-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Abstract)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Region)
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            @if (userrole == "Manager" || item.UserID == User.Identity.Name){
-            <tr>
+    @if (userrole == "Manager" || item.UserID == User.Identity.Name){
+        <tr>
             <td>
                 <a asp-action="Details" asp-route-id="@item.IdeaId">
                     @Html.DisplayFor(modelItem => item.Title)
                 </a>
             </td>
-            <td style="text-overflow: ellipsis;
+            <td class="d-none d-sm-table-cell" style="text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;">
                 @Html.DisplayFor(modelItem => item.Abstract)
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.Region)
             </td>
         </tr>

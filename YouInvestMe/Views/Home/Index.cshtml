@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<YouInvestMe.Models.Idea>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -16,45 +18,79 @@
 
 <div class="container">
     
-    <div class="p-4 mb-2 rounded-4 col-12 col-md-8 text-center mx-auto container">
        
-            @if (userrole == "Creator") {
-                <h1 class="display-5 fw-bold">Hello, <span class="text-primary">Creator</span>!</h1>
-                <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Create" asp-controller="Idea">start adding</a> your ideas to the platform or <a asp-action="Index" asp-controller="Idea">see</a> what you have available so far.</p>
-            } else if (userrole == "Manager") {
-                <h1 class="display-5 fw-bold">Hello, <span class="text-primary">Manager</span>!</h1>
-                 <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Index" asp-controller="Idea">start exploring all ideas</a> on the platform or <a asp-action="Create" asp-controller="Client">add</a> new client straight up.</p>
-            }
-     
-       
-    </div>
-    
-    <div class="d-flex flex-column flex-md-row gap-4">
-        <div class="w-100 w-md-50">
-            <div class="p-5 mb-2 bg-light rounded-4">
-                <div class="container-fluid">
-                    <h1 class="display-6 fw-bold">How to use?</h1>
-                    <p>Cillum nostrud ullamco pariatur ex cillum occaecat enim commodo. Proident ad voluptate culpa laborum eiusmod duis. Labore magna id laborum nulla ut consectetur aliqua ad consequat magna irure magna sit minim. Magna minim voluptate ad duis aliquip cillum cupidatat. Officia eiusmod amet cillum in adipisicing nostrud. Sint quis nostrud esse consequat eu cillum do consectetur velit anim laborum dolore.</p>
-                    <a class="btn btn-primary" type="button" asp-action="Create" asp-controller="Idea">Submit your first idea</a>
+@if (userrole == "Creator") {
+    <div class="p-2 rounded-4 col-10 text-center mx-auto container">
+        <h1 class="display-5 fw-bold">Hello, <span class="text-primary">Creator</span>!</h1>
+        <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Create" asp-controller="Idea">start adding</a> your ideas to the platform or <a asp-action="Index" asp-controller="Idea">see</a> what you have available so far.</p>
+        
+        <div class="d-flex flex-column flex-md-row gap-4">
+            
+            <div class="w-100 w-md-50">
+                <div class="p-5 mb-2 bg-light rounded-4">
+                    <div class="container-fluid">
+                        <h1 class="display-6 fw-bold">How to use?</h1>
+                        <p>Cillum nostrud ullamco pariatur ex cillum occaecat enim commodo. Proident ad voluptate culpa laborum eiusmod duis. Labore magna id laborum nulla ut consectetur aliqua ad consequat magna irure magna sit minim. Magna minim voluptate ad duis aliquip cillum cupidatat. Officia eiusmod amet cillum in adipisicing nostrud. Sint quis nostrud esse consequat eu cillum do consectetur velit anim laborum dolore.</p>
+                        <a class="btn btn-primary" type="button" asp-action="Create" asp-controller="Idea">Submit your first idea</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <flex-md-row div class="w-100 w-md-50">
-            <div class="p-5 mb-2 bg-light rounded-4">
-                <div class="container-fluid">
-                    <h1 class="display-6 fw-bold">Not the first time?</h1>
-                    <p>Cillum nostrud ullamco pariatur ex cillum occaecat enim commodo. Proident ad voluptate culpa laborum eiusmod duis. Labore magna id laborum nulla ut consectetur aliqua ad consequat magna irure magna sit minim. Magna minim voluptate ad duis aliquip cillum cupidatat. Officia eiusmod amet cillum in adipisicing nostrud. Sint quis nostrud esse consequat eu cillum do consectetur velit anim laborum dolore.</p>
-                    <button class="btn btn-primary">Let's start</button>
-                </div>
-            </div>
-        </flex-md-row>
-        
-    </div>
-    
-    
 
-        
+            <div div class="w-100 w-md-50">
+                <div class="p-5 mb-2 bg-light rounded-4">
+                    <div class="container-fluid">
+                        <h1 class="display-6 fw-bold">Not the first time?</h1>
+                        <p>Cillum nostrud ullamco pariatur ex cillum occaecat enim commodo. Proident ad voluptate culpa laborum eiusmod duis. Labore magna id laborum nulla ut consectetur aliqua ad consequat magna irure magna sit minim. Magna minim voluptate ad duis aliquip cillum cupidatat. Officia eiusmod amet cillum in adipisicing nostrud. Sint quis nostrud esse consequat eu cillum do consectetur velit anim laborum dolore.</p>
+                        <a class="btn btn-primary" asp-controller="Idea" asp-action="Index">Let's start</a>
+                    </div>
+                </div>
+            </div>
+        </div>       
+    </div>
+} else if (userrole == "Manager") {
+            
+    <h1 class="display-5 fw-bold mt-4">Hello, <span class="text-primary">Manager</span>!</h1>
+    <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Index" asp-controller="Idea">start exploring all ideas</a> on the platform or <a asp-action="Create" asp-controller="Client">add</a> new client straight up.</p>
+    
+    <hr/>
+    <br/>
+    <h4 class="display-4 mt-4">Recent ideas</h4>
+    <div class="d-flex flex-column justify-content-center">
+            @foreach (var item in Model) {
+                <a asp-action="Details" asp-controller="Idea" asp-route-id="@item.IdeaId" style="text-decoration:none;" class="text-dark"> 
+                    <div class="p-5 my-3 w-100 bg-light rounded-4 mx-auto">
+                        <div class="mb-5">  
+                            <h6 class='fw-bold display-6'>
+                                @Html.DisplayFor(modelItem => item.Title)
+                            </h6>
+                            <p class="overflow-auto">Published on: @Html.DisplayFor(modelItem => item.PublishedDate)</p>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            
+                            <div class="mb-5">
+                                <p><strong>Instruments: </strong>@Html.DisplayFor(modelItem => item.Instruments)</p>
+                                <p><strong>Currency: </strong>@Html.DisplayFor(modelItem => item.Currency)</p>
+                                <p><strong>Region: </strong>@Html.DisplayFor(modelItem => item.Region)</p>
+                                <p><strong>Country: </strong>@Html.DisplayFor(modelItem => item.Country)</p>
+                            </div>
+                            
+                            <div class="col-6">
+                                <h6 class="fw-bold"> Abstract</h6>
+                                <p style="height:50px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">
+                                    @Html.DisplayFor(modelItem => item.Abstract)
+                                </p>
+                                <p><strong>Created by: </strong>@Html.DisplayFor(modelItem => item.UserID)</p>
+                            </div>
+                        </div>
+                        
+                        <span class="text-primary">Read more &rarr;</span>
+                    </div>
+                </a>
+            }
+    </div>
+                
+}
   
 </div>
 

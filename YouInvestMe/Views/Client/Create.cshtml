@@ -5,12 +5,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        
+        <h1>Create</h1>
 
-<h4>Client</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+        <h4>Client</h4>
+        <hr />
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -20,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control" style="height: 150px"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,20 +30,19 @@
                 <span asp-validation-for="Region" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RiskValue" class="control-label"></label>
-                <input asp-for="RiskValue" class="form-control" />
-                <span asp-validation-for="RiskValue" class="text-danger"></span>
+                <label asp-for="RiskLevelId" class="control-label"></label>
+                <select asp-for="RiskLevelId" class ="form-control" asp-items="ViewBag.RiskLevelId"></select>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+             <div class="form-group mt-5 text-center">
+                <input type="submit" value="Create" class="btn btn-primary w-50" />
+            </div>    
         </form>
+        <div class="text-center">
+            <a asp-action="Index" class="btn btn-secondary mt-2 w-50">Back to List</a>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
