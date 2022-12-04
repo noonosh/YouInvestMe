@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using YouInvestMe.Data;
 using YouInvestMe.Models;
 
-namespace YouInvestMe.Controllers 
+namespace YouInvestMe.Controllers
 {
     [Authorize]
     public class IdeaController : Controller
@@ -17,11 +17,22 @@ namespace YouInvestMe.Controllers
         }
 
         // GET: Idea
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Idea != null ?
-                          View(await _context.Idea.OrderByDescending(x => x.PublishedDate).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
+
+            if (_context.Idea == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
+            }
+            var ideas = from i in _context.Idea
+                        select i;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ideas = ideas.Where(s => s.Title!.Contains(searchString));
+            }
+
+            return View(await ideas.OrderByDescending(x => x.PublishedDate).ToListAsync());
         }
 
         // GET: Idea/Details/5
@@ -149,14 +160,14 @@ namespace YouInvestMe.Controllers
             {
                 _context.Idea.Remove(idea);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool IdeaExists(int id)
         {
-          return (_context.Idea?.Any(e => e.IdeaId == id)).GetValueOrDefault();
+            return (_context.Idea?.Any(e => e.IdeaId == id)).GetValueOrDefault();
         }
     }
 }
