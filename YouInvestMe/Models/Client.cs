@@ -15,5 +15,7 @@ namespace YouInvestMe.Models
         public int RiskLevelId { get; set; }
         
         public virtual RiskLevel RiskLevel { get; set; }
+        public virtual ICollection<Idea> Ideas { get; set; }
+        public virtual ICollection<ClientIdea> ClientIdeas { get; set; }
     }
 }

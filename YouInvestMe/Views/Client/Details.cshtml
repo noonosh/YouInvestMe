@@ -38,6 +38,19 @@
     </dl>
 </div>
 <div>
+    <h4>Ideas</h4>
+    <tbody>
+        @foreach (var item in ViewBag.Ideas)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+            </tr>
+        }
+    </tbody>
+</div>
+<div>
     <a asp-action="Edit" asp-route-id="@Model?.ClientId" class="btn btn-primary">Edit</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

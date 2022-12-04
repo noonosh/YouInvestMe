@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221204202348_AddClientIdea")]
+    partial class AddClientIdea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1247a135-629e-4ff3-b9da-521cc39f8382",
+                            Id = "92b373cd-3500-4fe9-8f3d-8caaecec085a",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "ee340795-6019-44c6-a3f5-02253a9f7742",
+                            Id = "7d8a2926-e134-4aee-942b-fb6130f23e2b",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -450,13 +453,13 @@ namespace YouInvestMe.Migrations
             modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
                 {
                     b.HasOne("YouInvestMe.Models.Client", "Client")
-                        .WithMany("ClientIdeas")
+                        .WithMany()
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("YouInvestMe.Models.Idea", "Idea")
-                        .WithMany("ClientIdeas")
+                        .WithMany()
                         .HasForeignKey("IdeaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -475,16 +478,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
 
                     b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.Navigation("ClientIdeas");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
-                {
-                    b.Navigation("ClientIdeas");
                 });
 #pragma warning restore 612, 618
         }

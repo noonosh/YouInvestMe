@@ -44,6 +44,8 @@ namespace YouInvestMe.Controllers
                 return NotFound();
             }
 
+            var ideas = await _context.Idea.Where(u => u.Clients.Any(i => i.ClientId == id)).ToListAsync();
+            ViewBag.Ideas = ideas;
             return View(client);
         }
 
