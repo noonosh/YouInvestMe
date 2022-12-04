@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using YouInvestMe.Data;
 using YouInvestMe.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace YouInvestMe.Controllers 
 {
@@ -53,7 +54,7 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country, UserID")] Idea idea)
+        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country,UserID")] Idea idea)
         {
             if (ModelState.IsValid)
             {
@@ -75,6 +76,21 @@ namespace YouInvestMe.Controllers
             }
 
             var idea = await _context.Idea.FindAsync(id);
+            if (idea == null)
+            {
+                return NotFound();
+            }
+            return View(idea);
+        }
+
+        public async Task<IActionResult> Assign(int? id)
+        {
+            if (id == null || _context.Idea == null)
+            {
+                return NotFound();
+            }
+
+            var idea = await _context.Client.ToListAsync();
             if (idea == null)
             {
                 return NotFound();
@@ -115,6 +131,22 @@ namespace YouInvestMe.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(idea);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Assign(int id, int clientid, ClientIdea ct)
+        {
+            if (ModelState.IsValid)
+            {
+                ct.IdeaId = id;
+                ct.ClientId = clientid;
+                _context.ClientIdea.Add(ct);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
         }
 
         // GET: Idea/Delete/5

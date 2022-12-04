@@ -17,6 +17,7 @@ namespace YouInvestMe.Data
         public DbSet<YouInvestMe.Models.Client> Client { get; set; }
         public DbSet<YouInvestMe.Models.RiskLevel> RiskLevel { get; set; }
         public DbSet<YouInvestMe.Models.Product> Product { get; set; }
+        public DbSet<YouInvestMe.Models.ClientIdea> ClientIdea { get; set; }
 
         public ApplicationDbContext (DbContextOptions options)
             : base(options)

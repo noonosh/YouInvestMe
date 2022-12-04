@@ -1,0 +1,48 @@
+﻿@model IEnumerable<YouInvestMe.Models.Client>
+
+<table class="table table-hover table-bordered" style="table-layout: fixed">
+    <thead class="table-light text-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RiskLevelId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ClientId">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                </td>
+                <td class="d-none d-sm-table-cell">
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td class="d-none d-sm-table-cell">
+                    @Html.DisplayFor(modelItem => item.Region)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RiskLevelId)
+                </td>
+                <td>
+                    @using (Html.BeginForm())
+                    {
+                        @Html.Hidden("clientid", item.ClientId)
+                        <input type="submit" value="Submit" class="btn btn-secondary mt-2 w-50" formmethod="post" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
