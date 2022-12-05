@@ -35,7 +35,9 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </a>
             </td>
-            <td class="d-none d-sm-table-cell">
+            <td class="d-none d-sm-table-cell" style="text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;">
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td class="d-none d-sm-table-cell">
