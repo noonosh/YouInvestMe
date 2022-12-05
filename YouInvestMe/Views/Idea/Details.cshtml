@@ -4,6 +4,18 @@
     ViewData["Title"] = "Details";
 }
 
+@{
+    string userrole = "";
+}
+
+@foreach (var claim in User.Claims)
+{
+    if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+    {
+        userrole = claim.Value;
+    }
+}
+
 <h1>Details</h1>
 
 <div>
@@ -74,7 +86,10 @@
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.IdeaId" class="btn btn-primary">Edit</a>
-    <a asp-action="Assign" asp-route-id="@Model?.IdeaId" class="btn btn-primary">Assign</a>
+    @if (userrole == "Manager")
+    {
+        <a asp-action="Assign" asp-route-id="@Model?.IdeaId" class="btn btn-primary">Assign</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 <h6 class="fw-bold mt-4 border-top pt-4 w-100" style="font-size: 2rem">Danger zone!</h6>

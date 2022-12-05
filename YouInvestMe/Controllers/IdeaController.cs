@@ -93,7 +93,8 @@ namespace YouInvestMe.Controllers
             }
             return View(idea);
         }
-
+        
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Assign(int? id)
         {
             if (id == null || _context.Idea == null)
@@ -146,6 +147,7 @@ namespace YouInvestMe.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
         public async Task<IActionResult> Assign(int id, int clientid, ClientIdea ct)
         {
             if (ModelState.IsValid)
