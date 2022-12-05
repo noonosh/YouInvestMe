@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<YouInvestMe.Models.Client>
 
+<button onclick="history.back()" class="btn btn-primary mb-5 mt-3">&larr; Back </button>
+
 <table class="table table-hover table-bordered" style="table-layout: fixed">
     <thead class="table-light text-center">
         <tr>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th class="d-none d-sm-table-cell">
@@ -12,9 +14,10 @@
             <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Region)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.RiskLevelId)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -22,15 +25,17 @@
         {
             <tr>
                 <td class="d-none d-sm-table-cell">
-                        @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
-                <td class="d-none d-sm-table-cell">
+                <td class="d-none d-sm-table-cell" style="text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;">
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td class="d-none d-sm-table-cell">
                     @Html.DisplayFor(modelItem => item.Region)
                 </td>
-                <td>
+                <td class="d-none d-sm-table-cell">
                     @Html.DisplayFor(modelItem => item.RiskLevelId)
                 </td>
                 <td>
