@@ -152,12 +152,16 @@ namespace YouInvestMe.Controllers
             {
                 ct.IdeaId = id;
                 ct.ClientId = clientid;
-                var matching = _context.ClientIdea.Where(x => x == ct).ToListAsync();
-                if (matching == null)
-                {
-                    _context.ClientIdea.Add(ct);
-                    await _context.SaveChangesAsync();
-                }
+                
+                // Let's wait until the end of session. //
+                // I will showcase our project //
+                
+                // var matching = _context.ClientIdea.Where(x => x == ct).ToListAsync();
+                // if (matching == null)
+                // {
+                _context.ClientIdea.Add(ct);
+                await _context.SaveChangesAsync();
+                // }
 
                 return RedirectToAction(nameof(Index));
             }
