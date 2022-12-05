@@ -20,13 +20,13 @@
     
        
 @if (userrole == "Creator") {
-    <div class="p-2 rounded-4 col-10 text-center mx-auto container">
+    <div class="p-2 rounded-4 col-10 text-center w-100">
         <h1 class="display-5 fw-bold">Hello, <span class="text-primary">Creator</span>!</h1>
         <p class="text-muted">We will help you get started with your dashboard. You can <a asp-action="Create" asp-controller="Idea">start adding</a> your ideas to the platform or <a asp-action="Index" asp-controller="Idea">see</a> what you have available so far.</p>
         
-        <div class="d-flex flex-column flex-md-row gap-4">
+        <div class="d-flex flex-column flex-md-row gap-4 mt-5">
             
-            <div class="w-100 w-md-50">
+            <div class="w-100">
                 <div class="p-5 mb-2 bg-light rounded-4">
                     <div class="container-fluid">
                         <h1 class="display-6 fw-bold">How to use?</h1>

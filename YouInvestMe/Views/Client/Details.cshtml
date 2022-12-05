@@ -37,18 +37,20 @@
         </dd>
     </dl>
 </div>
-<div>
-    <h4>Ideas</h4>
-    <tbody>
+<div class="mb-5">
+    <h4 class="mb-3 f-underline">Assigned Ideas</h4>
+    @if (ViewBag.Ideas.Count == 0) {   
+        <p>No ideas are assigned yet.</p>
+    } else {
         @foreach (var item in ViewBag.Ideas)
         {
-            <tr>
-                <td>
-                    @item.Title
-                </td>
-            </tr>
+            <ul>
+                <li style = "list-style: square;">
+                    <a asp-action="Details" asp-controller="Idea" asp-route-id="@item.IdeaId">@item.Title</a>
+                </li>
+            </ul>
         }
-    </tbody>
+    }
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ClientId" class="btn btn-primary">Edit</a>
