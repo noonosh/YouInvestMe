@@ -35,6 +35,8 @@ namespace YouInvestMe.Models
         [Display(Name = "Created by")]
         public string UserID { get; set; }
 
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<ClientIdea> ClientIdeas { get; set; }
     }
 
 }
