@@ -152,8 +152,12 @@ namespace YouInvestMe.Controllers
             {
                 ct.IdeaId = id;
                 ct.ClientId = clientid;
-                _context.ClientIdea.Add(ct);
-                await _context.SaveChangesAsync();
+                var matching = _context.ClientIdea.Where(x => x == ct).ToListAsync();
+                if (matching == null)
+                {
+                    _context.ClientIdea.Add(ct);
+                    await _context.SaveChangesAsync();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
