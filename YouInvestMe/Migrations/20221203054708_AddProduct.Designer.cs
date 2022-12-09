@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203054708_AddProduct")]
+    partial class AddProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1247a135-629e-4ff3-b9da-521cc39f8382",
+                            Id = "85224a02-c0a6-4de9-abb9-0bb121741365",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "ee340795-6019-44c6-a3f5-02253a9f7742",
+                            Id = "bfeb0401-6e05-46b0-bd69-fd5eb2d7b3c4",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -240,37 +243,23 @@ namespace YouInvestMe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("RiskLevelId")
+                    b.Property<int>("RiskValue")
                         .HasColumnType("int");
 
                     b.HasKey("ClientId");
 
-                    b.HasIndex("RiskLevelId");
-
                     b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdeaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "IdeaId");
-
-                    b.HasIndex("IdeaId");
-
-                    b.ToTable("ClientIdea");
                 });
 
             modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
@@ -280,30 +269,37 @@ namespace YouInvestMe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Abstract")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Currency")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("ExpiriesDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Instruments")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("ProductType")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("UserID")
@@ -324,25 +320,32 @@ namespace YouInvestMe.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<float>("ClosingPrice")
-                        .HasColumnType("float");
+                    b.Property<string>("ClosingPrice")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Country")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("InstrumentDisplayName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("InstrumentName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("InternalInstrumentId")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PriceCurrency")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Region")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("RiskLevelId")
@@ -362,9 +365,11 @@ namespace YouInvestMe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("RiskLevelId");
@@ -377,9 +382,11 @@ namespace YouInvestMe.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasDiscriminator().HasValue("User");
@@ -436,36 +443,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
-                        .WithMany()
-                        .HasForeignKey("RiskLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.Client", "Client")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("YouInvestMe.Models.Idea", "Idea")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("IdeaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Idea");
-                });
-
             modelBuilder.Entity("YouInvestMe.Models.Product", b =>
                 {
                     b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
@@ -475,16 +452,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
 
                     b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.Navigation("ClientIdeas");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
-                {
-                    b.Navigation("ClientIdeas");
                 });
 #pragma warning restore 612, 618
         }

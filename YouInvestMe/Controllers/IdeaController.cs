@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using YouInvestMe.Data;
 using YouInvestMe.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace YouInvestMe.Controllers 
+namespace YouInvestMe.Controllers
 {
     [Authorize]
     public class IdeaController : Controller
@@ -17,11 +18,22 @@ namespace YouInvestMe.Controllers
         }
 
         // GET: Idea
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Idea != null ? 
-                          View(await _context.Idea.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
+
+            if (_context.Idea == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Idea'  is null.");
+            }
+            var ideas = from i in _context.Idea
+                        select i;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                ideas = ideas.Where(s => s.Title!.Contains(searchString));
+            }
+
+            return View(await ideas.OrderByDescending(x => x.PublishedDate).ToListAsync());
         }
 
         // GET: Idea/Details/5
@@ -53,10 +65,11 @@ namespace YouInvestMe.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country, UserID")] Idea idea)
+        public async Task<IActionResult> Create([Bind("IdeaId,Title,Abstract,PublishedDate,ExpiriesDate,ProductType,Instruments,Currency,Region,Country,UserID")] Idea idea)
         {
             if (ModelState.IsValid)
             {
+                idea.PublishedDate = DateTime.Now;
                 idea.UserID = User.Identity.Name;
                 _context.Add(idea);
                 await _context.SaveChangesAsync();
@@ -74,6 +87,22 @@ namespace YouInvestMe.Controllers
             }
 
             var idea = await _context.Idea.FindAsync(id);
+            if (idea == null)
+            {
+                return NotFound();
+            }
+            return View(idea);
+        }
+        
+        [Authorize(Roles="Manager")]
+        public async Task<IActionResult> Assign(int? id)
+        {
+            if (id == null || _context.Idea == null)
+            {
+                return NotFound();
+            }
+
+            var idea = await _context.Client.ToListAsync();
             if (idea == null)
             {
                 return NotFound();
@@ -116,6 +145,31 @@ namespace YouInvestMe.Controllers
             return View(idea);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles="Manager")]
+        public async Task<IActionResult> Assign(int id, int clientid, ClientIdea ct)
+        {
+            if (ModelState.IsValid)
+            {
+                ct.IdeaId = id;
+                ct.ClientId = clientid;
+                
+                // Let's wait until the end of session. //
+                // I will showcase our project //
+                
+                // var matching = _context.ClientIdea.Where(x => x == ct).ToListAsync();
+                // if (matching == null)
+                // {
+                _context.ClientIdea.Add(ct);
+                await _context.SaveChangesAsync();
+                // }
+
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+
         // GET: Idea/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -148,14 +202,14 @@ namespace YouInvestMe.Controllers
             {
                 _context.Idea.Remove(idea);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool IdeaExists(int id)
         {
-          return (_context.Idea?.Any(e => e.IdeaId == id)).GetValueOrDefault();
+            return (_context.Idea?.Any(e => e.IdeaId == id)).GetValueOrDefault();
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203214023_AddFKRiskValueForClientModel")]
+    partial class AddFKRiskValueForClientModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1247a135-629e-4ff3-b9da-521cc39f8382",
+                            Id = "fa42b674-7e6b-44e6-8efa-42446c31a81c",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "ee340795-6019-44c6-a3f5-02253a9f7742",
+                            Id = "059d594c-602e-4567-a43f-ebede36d5ad0",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -258,21 +261,6 @@ namespace YouInvestMe.Migrations
                     b.ToTable("Client");
                 });
 
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdeaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "IdeaId");
-
-                    b.HasIndex("IdeaId");
-
-                    b.ToTable("ClientIdea");
-                });
-
             modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
                 {
                     b.Property<int>("IdeaId")
@@ -321,7 +309,6 @@ namespace YouInvestMe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AssetType")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<float>("ClosingPrice")
@@ -447,25 +434,6 @@ namespace YouInvestMe.Migrations
                     b.Navigation("RiskLevel");
                 });
 
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.Client", "Client")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("YouInvestMe.Models.Idea", "Idea")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("IdeaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Idea");
-                });
-
             modelBuilder.Entity("YouInvestMe.Models.Product", b =>
                 {
                     b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
@@ -475,16 +443,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
 
                     b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.Navigation("ClientIdeas");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
-                {
-                    b.Navigation("ClientIdeas");
                 });
 #pragma warning restore 612, 618
         }

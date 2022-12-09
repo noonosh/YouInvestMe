@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YouInvestMe.Data;
 
@@ -10,9 +11,11 @@ using YouInvestMe.Data;
 namespace YouInvestMe.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221203203711_AlterClosePriceDataType")]
+    partial class AlterClosePriceDataType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +50,13 @@ namespace YouInvestMe.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1247a135-629e-4ff3-b9da-521cc39f8382",
+                            Id = "323b7c8a-a116-4fdc-8f97-6f732a6bd522",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "ee340795-6019-44c6-a3f5-02253a9f7742",
+                            Id = "3672e307-5926-416a-949e-63e6860df1e0",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         });
@@ -248,29 +251,12 @@ namespace YouInvestMe.Migrations
                     b.Property<string>("Region")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("RiskLevelId")
+                    b.Property<int>("RiskValue")
                         .HasColumnType("int");
 
                     b.HasKey("ClientId");
 
-                    b.HasIndex("RiskLevelId");
-
                     b.ToTable("Client");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdeaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "IdeaId");
-
-                    b.HasIndex("IdeaId");
-
-                    b.ToTable("ClientIdea");
                 });
 
             modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
@@ -321,7 +307,6 @@ namespace YouInvestMe.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("AssetType")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<float>("ClosingPrice")
@@ -436,36 +421,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
-                        .WithMany()
-                        .HasForeignKey("RiskLevelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.ClientIdea", b =>
-                {
-                    b.HasOne("YouInvestMe.Models.Client", "Client")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("YouInvestMe.Models.Idea", "Idea")
-                        .WithMany("ClientIdeas")
-                        .HasForeignKey("IdeaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Idea");
-                });
-
             modelBuilder.Entity("YouInvestMe.Models.Product", b =>
                 {
                     b.HasOne("YouInvestMe.Models.RiskLevel", "RiskLevel")
@@ -475,16 +430,6 @@ namespace YouInvestMe.Migrations
                         .IsRequired();
 
                     b.Navigation("RiskLevel");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Client", b =>
-                {
-                    b.Navigation("ClientIdeas");
-                });
-
-            modelBuilder.Entity("YouInvestMe.Models.Idea", b =>
-                {
-                    b.Navigation("ClientIdeas");
                 });
 #pragma warning restore 612, 618
         }

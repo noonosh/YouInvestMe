@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using YouInvestMe.Data;
@@ -12,92 +12,90 @@ using YouInvestMe.Models;
 namespace YouInvestMe.Controllers
 {
     [Authorize(Roles = "Manager")]
-    public class ClientController : Controller
+    public class ProductController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ClientController(ApplicationDbContext context)
+        public ProductController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Client
+        // GET: Product
         public async Task<IActionResult> Index()
         {
-              return _context.Client != null ? 
-                          View(await _context.Client.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Client'  is null.");
+            var applicationDbContext = _context.Product.Include(p => p.RiskLevel);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Client/Details/5
+        // GET: Product/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Client == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.ClientId == id);
-            if (client == null)
+            var product = await _context.Product
+                .Include(p => p.RiskLevel)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            var ideas = await _context.Idea.Where(u => u.Clients.Any(i => i.ClientId == id)).ToListAsync();
-            ViewBag.Ideas = ideas;
-            return View(client);
+            return View(product);
         }
 
-        // GET: Client/Create
+        // GET: Product/Create
         public IActionResult Create()
         {
             ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId");
             return View();
         }
 
-        // POST: Client/Create
+        // POST: Product/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ClientId,Name,Description,Region,RiskLevelId")] Client client)
+        public async Task<IActionResult> Create([Bind("ProductId,InternalInstrumentId,InstrumentDisplayName,InstrumentName,AssetType,Region,Country,PriceCurrency,ClosingPrice,RiskLevelId")] Product product)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(client);
+                _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
-            return View(client);
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", product.RiskLevelId);
+            return View(product);
         }
 
-        // GET: Client/Edit/5
+        // GET: Product/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Client == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var client = await _context.Client.FindAsync(id);
-            if (client == null)
+            var product = await _context.Product.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
-            return View(client);
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", product.RiskLevelId);
+            return View(product);
         }
 
-        // POST: Client/Edit/5
+        // POST: Product/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ClientId,Name,Description,Region,RiskLevelId")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,InternalInstrumentId,InstrumentDisplayName,InstrumentName,AssetType,Region,Country,PriceCurrency,ClosingPrice,RiskLevelId")] Product product)
         {
-            if (id != client.ClientId)
+            if (id != product.ProductId)
             {
                 return NotFound();
             }
@@ -106,12 +104,12 @@ namespace YouInvestMe.Controllers
             {
                 try
                 {
-                    _context.Update(client);
+                    _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.ClientId))
+                    if (!ProductExists(product.ProductId))
                     {
                         return NotFound();
                     }
@@ -122,50 +120,51 @@ namespace YouInvestMe.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", client.RiskLevelId);
-            return View(client);
+            ViewData["RiskLevelId"] = new SelectList(_context.RiskLevel, "RiskLevelId", "RiskLevelId", product.RiskLevelId);
+            return View(product);
         }
 
-        // GET: Client/Delete/5
+        // GET: Product/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Client == null)
+            if (id == null || _context.Product == null)
             {
                 return NotFound();
             }
 
-            var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.ClientId == id);
-            if (client == null)
+            var product = await _context.Product
+                .Include(p => p.RiskLevel)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(product);
         }
 
-        // POST: Client/Delete/5
+        // POST: Product/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Client == null)
+            if (_context.Product == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Client'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Product'  is null.");
             }
-            var client = await _context.Client.FindAsync(id);
-            if (client != null)
+            var product = await _context.Product.FindAsync(id);
+            if (product != null)
             {
-                _context.Client.Remove(client);
+                _context.Product.Remove(product);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        private bool ProductExists(int id)
         {
-          return (_context.Client?.Any(e => e.ClientId == id)).GetValueOrDefault();
+          return (_context.Product?.Any(e => e.ProductId == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<YouInvestMe.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="fw-bold my-4">All products</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table table-hover table-bordered" style="table-layout: fixed">
+    <thead class="table-light text-center">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.InternalInstrumentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstrumentDisplayName)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.InstrumentName)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.AssetType)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.Region)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.PriceCurrency)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.ClosingPrice)
+            </th>
+            <th class="d-none d-sm-table-cell">
+                @Html.DisplayNameFor(model => model.RiskLevel)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td class="col-3 col-sm-1">
+                @Html.DisplayFor(modelItem => item.InternalInstrumentId)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.ProductId">
+                    @Html.DisplayFor(modelItem => item.InstrumentDisplayName)
+                </a>
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.InstrumentName)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.AssetType)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.Region)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.Country)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.PriceCurrency)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.ClosingPrice)
+            </td>
+            <td class="d-none d-sm-table-cell">
+                @Html.DisplayFor(modelItem => item.RiskLevel.RiskLevelId)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

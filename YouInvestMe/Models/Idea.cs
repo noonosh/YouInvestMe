@@ -12,9 +12,13 @@ namespace YouInvestMe.Models
         public string Abstract { get; set; }
 
         [Display(Name = "Published Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime PublishedDate { get; set; }
 
         [Display(Name = "Expiry Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd MMM yyyy}")]
         public DateTime ExpiriesDate { get; set; }
 
         [Display(Name = "Product Type")]
@@ -28,8 +32,11 @@ namespace YouInvestMe.Models
 
         public string Country { get; set; }
 
-        public string? UserID { get; set; }
+        [Display(Name = "Created by")]
+        public string UserID { get; set; }
 
+        public virtual ICollection<Client> Clients { get; set; }
+        public virtual ICollection<ClientIdea> ClientIdeas { get; set; }
     }
 
 }

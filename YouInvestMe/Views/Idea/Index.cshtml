@@ -16,44 +16,65 @@
     }
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-between">
+    
+@if (userrole == "Manager") {
+    <h1 class='fw-bold my-4'>All ideas</h1>
+} else if (userrole == "Creator") {
+    <h1 class='fw-bold my-4'>My ideas</h1>
+} else {
+    <h1 class='fw-bold my-4'>Ideas</h1>
+}
+
+<form asp-controller="Idea" asp-action="Index" method="get" class="d-flex" style="max-height: 40px;">
+        <input type="text" name="SearchString" class="form-control me-sm-2" placeholder="Search by title..." />
+        <button type="submit" class="btn btn-primary my-2 my-sm-0">Search</button>
+</form>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table table-hover table-responsive">
-    <thead>
+
+
+
+
+@if (Model != null && Model.Any()) {
+<table class="table table-hover table-bordered" style="table-layout: fixed">
+    <thead class="table-light text-center">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Abstract)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.PublishedDate)
             </th>
-            <th>
+            <th class="d-none d-sm-table-cell">
                 @Html.DisplayNameFor(model => model.Region)
             </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-            @if (userrole == "Manager" || item.UserID == User.Identity.Name){
-            <tr>
+    @if (userrole == "Manager" || item.UserID == User.Identity.Name){
+        <tr>
             <td>
                 <a asp-action="Details" asp-route-id="@item.IdeaId">
                     @Html.DisplayFor(modelItem => item.Title)
                 </a>
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell" style="text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;">
                 @Html.DisplayFor(modelItem => item.Abstract)
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.PublishedDate)
             </td>
-            <td>
+            <td class="d-none d-sm-table-cell">
                 @Html.DisplayFor(modelItem => item.Region)
             </td>
         </tr>
@@ -61,3 +82,12 @@
 }
     </tbody>
 </table>
+} else {
+    <div class="text-center">
+        <h3 >No results found</h3>
+        <a asp-controller='Idea' asp-action='Index'>Go back</a>
+    </div>  
+}
+
+
+
