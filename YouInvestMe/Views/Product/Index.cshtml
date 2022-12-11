@@ -7,6 +7,7 @@
 <h1 class="fw-bold my-4">All products</h1>
 
 <p>
+    @* Displays create new produtc button *@
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table table-hover table-bordered" style="table-layout: fixed">
@@ -42,6 +43,7 @@
         </tr>
     </thead>
     <tbody>
+ @* Loop through the products resultset and display the values in the table *@
 @foreach (var item in Model) {
         <tr>
             <td class="col-3 col-sm-1">
