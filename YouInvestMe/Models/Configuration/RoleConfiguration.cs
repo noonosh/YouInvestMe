@@ -8,6 +8,7 @@ namespace YouInvestMe.Models.Configuration
     {
         public void Configure(EntityTypeBuilder<IdentityRole> builder)
         {
+            // Creates the two roles used in the program
             builder.HasData(
             new IdentityRole
             {

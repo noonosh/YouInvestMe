@@ -2,6 +2,7 @@
 {
     public class ClientIdea
     {
+        // Composite primary/foreign key to allow many-to-many relationship
         public int ClientId { get; set; }
         public int IdeaId { get; set; }
 

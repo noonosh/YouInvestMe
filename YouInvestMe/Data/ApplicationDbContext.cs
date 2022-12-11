@@ -26,6 +26,7 @@ namespace YouInvestMe.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            // Required to have a many to many relationship between Client and Idea model
             builder.Entity<Idea>()
                 .HasMany(i => i.Clients)
                 .WithMany(c => c.Ideas)

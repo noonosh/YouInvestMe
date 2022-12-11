@@ -4,6 +4,7 @@
     string userrole = "";
 }
 
+@* Finds the user's role *@
 @foreach (var claim in User.Claims)
 {
     if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
@@ -16,6 +17,7 @@
 
 <div class="">
     <h1 class="display-4">Account Details</h1>
+    @* Displays idea button as well as client button if the user is a manager *@
     <a asp-controller="Idea" asp-action="Index" class="btn btn-primary">See all ideas</a>
     @if (userrole == "Manager")
     {
