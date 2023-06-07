@@ -92,7 +92,7 @@ dotnet watch run
 #### 🚀 Your output in the terminal should look something like this:
 ![](/misc/dotnet-watch-run.jpg)
 
-#### Once done, fee free to create an account for yourself through `Register` at the bottom
+#### Once done, feel free to create an account for yourself through `Register` at the bottom
 ![](/misc/default-login.jpg)
 
 **Authors thoughts on the module:**
